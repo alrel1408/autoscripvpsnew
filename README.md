@@ -3,13 +3,13 @@
 </p>
 
 ## UPGRADE FOR DEBIAN
-Masukkan perintah dibawah jika anda menggunakan OS Debian Version 9 atau 10
+Masukkan perintah dibawah jika anda menggunakan OS Debian Version 9, 10, atau 11
 ```
 apt update -y && apt upgrade -y && apt dist-upgrade -y && reboot
 ```
 
 ##  UPGRADE FOR UBUNTU
-Masukkan perintah dibawah jika anda menggunakan OS Ubuntu Version 18 atau 20
+Masukkan perintah dibawah jika anda menggunakan OS Ubuntu Version 18, 20, atau 22
 ```
 apt update && apt upgrade -y && update-grub && sleep 2 && reboot
 ```
@@ -18,12 +18,12 @@ apt update && apt upgrade -y && update-grub && sleep 2 && reboot
 ## INSTALL SCRIPT !!!!!
 Masukkan perintah dibawah!!!!࿐
 ```
-apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/alrel1408/AutoScript/main/ubu20-deb10-stable.sh && chmod +x ubu20-deb10-stable.sh && ./ubu20-deb10-stable.sh
+apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/alrel1408/autoscripvpsnew/main/ubu20-deb10-stable.sh && chmod +x ubu20-deb10-stable.sh && ./ubu20-deb10-stable.sh
 ```
 ## UPDATE SCRIPT
 Masukkan perintah dibawah jika terdapat informasi pembaruan Script untuk versi yang akan datang
 ```
-wget -q https://raw.githubusercontent.com/alrel1408/AutoScript/main/ubu20-deb10-stable.sh && chmod +x update.sh && ./update.sh
+wget -q https://raw.githubusercontent.com/alrel1408/autoscripvpsnew/main/ubu20-deb10-stable.sh && chmod +x update.sh && ./update.sh
 ```
 ## FIX BUG ATASI HAPROXY EROR
 Masukkan perintah dibawah jika terdapat eror pada satus haproxy
@@ -37,8 +37,8 @@ sudo systemctl restart haproxy
 Kembali ke menu utama dan cek apakah haproxy sudah berjalan dengan normal
 
 ## TESTED ON OS
-- UBUNTU Version 18 Atau 20 (Recommended)
-- DEBIAN Version 09 Atau 10
+- UBUNTU Version 18, 20, atau 22 (Recommended)
+- DEBIAN Version 09, 10, atau 11
 
 ## FITUR TAMBAHAN
 - Pemasangan yang Dinamis

