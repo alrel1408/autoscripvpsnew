@@ -1,0 +1,63 @@
+# AlrelShop VPN Panel V.4 - Git Ignore
+
+# Database config (sensitive)
+config/database.php
+
+# Log files
+*.log
+logs/
+error.log
+access.log
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Upload directories
+uploads/
+files/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+backup/
+backups/
+
+# Session files
+sessions/
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if using)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# PHP
+*.php~
+
+# Apache/Nginx logs
+*.access.log
+*.error.log
