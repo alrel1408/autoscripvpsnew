@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# ⚠️  PASSWORD PROTECTION ACTIVE - Script ini TIDAK akan mengubah password root
+# 🔒 AlrelShop V.4 - Password Safe Mode
+
 Green="\e[92;1m"
 RED="\033[31m"
 YELLOW="\033[33m"
@@ -25,11 +28,12 @@ clear;clear;clear
 
 # // Banner
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "  Developer » VALLSTORE࿐${YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
+echo -e "  Developer » AlrelShop࿐${YELLOW}(${NC}${green} Premium Edition V.4 ${NC}${YELLOW})${NC}"
 echo -e "  » This Will Quick Setup VPN Server On Your Server"
 echo -e "  » Support Ubuntu 18/20/22 & Debian 9/10/11"
-echo -e "  Pembuat : ${green}Vallstore࿐® ${NC}"
-echo -e "  ©NO COPY SCRIP MEMEK TEMBEM࿐ ${YELLOW}(${NC} 2024 ${YELLOW})${NC}"
+echo -e "  Pembuat : ${green}AlrelShop࿐® ${NC}"
+echo -e "  Admin : ${green}082285851668${NC}"
+echo -e "  ©SCRIPT PREMIUM ALRELSHOP࿐ ${YELLOW}(${NC} 2024 ${YELLOW})${NC}"
 echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 sleep 2
@@ -240,10 +244,10 @@ function base_package() {
 clear
 # Fungsi input domain
 function password_default() {
-echo -e "$green [INFO]$NC Mengganti password default"
-# Ganti password default
-echo 'root:Vallstore@2024' | chpasswd
-sleep 1
+echo -e "$green [INFO]$NC Password VPS tetap tidak diubah - Tidak ada perubahan password"
+echo -e "$yellow [WARNING]$NC Script tidak akan mengubah password root"
+# Fungsi kosong - password root tidak diubah sama sekali
+sleep 2
 }
 
 function pasang_domain() {
@@ -270,7 +274,7 @@ echo $host1 > /root/domain
 echo ""
 elif [[ $host == "2" ]]; then
 #install cf
-wget ${REPO}files/cf.sh && chmod +x cf.sh && ./cf.sh
+echo -e "$green [SKIP]$NC CloudFlare setup di-skip untuk keamanan password"
 rm -f /root/cf.sh
 clear
 else
@@ -329,9 +333,9 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
     TIMEZONE=$(printf '%(%H:%M:%S)T')
     TEXT="
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
-<b>PREMIUM AUTOSCRIPT</b>
+<b>SCRIPT PREMIUM ALRELSHOP V.4</b>
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
-<code>User     :</code><code>$username</code>
+<code>User     :</code><code>admin</code>
 <code>Domain   :</code><code>$domain</code>
 <code>IPVPS    :</code><code>$MYIP</code>
 <code>ISP      :</code><code>$ISP</code>
@@ -339,10 +343,10 @@ URL="https://api.telegram.org/bot$KEY/sendMessage"
 <code>Time     :</code><code>$TIMEZONE</code>
 <code>Exp Sc.  :</code><code>$exp</code>
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
-<b>VALLSTORE࿐</b>
+<b>ALRELSHOP࿐</b>
 <code>━━━━━━━━━━━━━━━━━━━━━━━━━</code>
 <i>Automatic Notifications From Github</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://wa.me/+6282300115583"}]]}' 
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ","url":"https://wa.me/+6282285851668"}]]}' 
 
     curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
@@ -699,7 +703,7 @@ gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | 
     chronyc sourcestats -v
     chronyc tracking -v
     
-    wget ${REPO}files/bbr.sh &&  chmod +x bbr.sh && ./bbr.sh
+    echo -e "$green [SKIP]$NC BBR akan diinstall manual untuk keamanan password"
 print_success "Swap 1 G"
 }
 
@@ -773,26 +777,38 @@ print_success "ePro WebSocket Proxy"
 function ins_restart(){
 clear
 print_install "Restarting  All Packet"
-/etc/init.d/nginx restart
-/etc/init.d/openvpn restart
-/etc/init.d/ssh restart
-/etc/init.d/dropbear restart
-/etc/init.d/fail2ban restart
-/etc/init.d/vnstat restart
+# Buat direktori yang dibutuhkan
+mkdir -p /run/sshd
+mkdir -p /var/log/xray
+mkdir -p /var/www/html
+
+# Restart services dengan urutan yang benar
+systemctl daemon-reload
+systemctl restart ssh
+systemctl restart nginx  
+systemctl restart xray
 systemctl restart haproxy
-/etc/init.d/cron restart
-    systemctl daemon-reload
-    systemctl start netfilter-persistent
-    systemctl enable --now nginx
-    systemctl enable --now xray
-    systemctl enable --now rc-local
-    systemctl enable --now dropbear
-    systemctl enable --now openvpn
-    systemctl enable --now cron
-    systemctl enable --now haproxy
-    systemctl enable --now netfilter-persistent
-    systemctl enable --now ws
-    systemctl enable --now fail2ban
+systemctl restart dropbear
+systemctl restart openvpn
+systemctl restart vnstat
+systemctl restart cron
+systemctl restart ws
+
+# Enable services
+systemctl enable --now ssh
+systemctl enable --now nginx
+systemctl enable --now xray
+systemctl enable --now rc-local
+systemctl enable --now dropbear
+systemctl enable --now openvpn
+systemctl enable --now cron
+systemctl enable --now haproxy
+systemctl enable --now netfilter-persistent
+systemctl enable --now ws
+
+# Restart lagi untuk memastikan
+systemctl restart ssh nginx xray haproxy dropbear
+
 history -c
 echo "unset HISTFILE" >> /etc/profile
 
